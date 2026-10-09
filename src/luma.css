@@ -38,3 +38,82 @@ html{scroll-behavior:smooth;scroll-padding-top:20px}
 @media(prefers-reduced-motion:reduce){.technology-marquee span{animation:none}.care-orbital .service-card:hover{transform:none}}
 
 @media(max-width:580px){.care-orbital .service-grid{grid-template-columns:1fr;gap:18px}.care-orbital .service-photo{aspect-ratio:1.85}.care-orbital .service-body{padding:20px 14px}.care-orbital .service-title h3{font-size:23px}.care-orbital .service-description{font-size:12px}.care-orbital .service-body>.text-link{font-size:10px!important}.care-orbital .care-icon{width:26px;height:26px}}
+
+/* Mobile composition: separate image, headline and booking copy into readable zones. */
+@media(max-width:760px){
+.luma-site{padding:8px}
+.luma-site main{min-width:0}
+.luma-site h2{overflow-wrap:normal}
+.nav{height:76px;gap:8px;padding-inline:5%}
+.nav-contact{font-size:12px;min-height:44px;gap:5px}
+.menu-toggle{min-width:52px;min-height:44px;padding:10px 12px;font-size:12px!important}
+.nav-links.open{top:70px;padding:12px;z-index:20}
+.nav-links.open a{font-size:15px;min-height:44px;display:flex;align-items:center;padding:10px 12px}
+.hero-reference{height:730px}
+.hero-reference .hero-title{top:20px;left:3%;right:3%;font-size:clamp(46px,13.1vw,88px);line-height:1.05;letter-spacing:-.06em}
+.hero-reference .hero-scene{top:55px;left:12%;right:auto;width:76%;height:430px;bottom:auto}
+.hero-reference .hero-scene img{object-fit:contain;object-position:center top}
+.hero-left-copy{left:7%;right:7%;top:auto;bottom:100px;max-width:none;font-size:17px;line-height:1.45;letter-spacing:-.3px}
+.hero-left-copy .button{margin-top:16px;min-height:48px;width:100%;font-size:13px;padding:15px 20px;justify-content:space-between}
+.hero-right-copy{left:7%;right:18%;top:auto;bottom:37px;max-width:none;font-size:12px;line-height:1.45}
+.hero-right-copy br{display:none}
+.hero-reference .hero-orbit{top:380px;left:13%;width:74%;height:60px}
+.hero-reference .hero-label{top:448px;font-size:9px;max-width:120px;line-height:1.4}
+.hero-reference .hero-label-left{left:7%}
+.hero-reference .hero-label-right{left:auto;right:7%;top:448px}
+.hero-footer-note{display:none}
+.hero-reference .hero-down{bottom:30px;right:6%;width:44px;height:44px;line-height:42px}
+.section{padding:44px 6%}
+.eyebrow{font-size:11px}
+.button{min-height:44px;font-size:13px}
+.about-heading h2{font-size:clamp(35px,8.5vw,52px);line-height:1.08}
+.about-heading>p{font-size:15px;line-height:1.65;max-width:none}
+.values-grid{gap:12px;margin:28px 0 0}
+.values-grid article{padding:20px 16px;min-height:225px}
+.values-grid h3{font-size:20px;line-height:1.15}
+.values-grid article p{font-size:13px;line-height:1.6}
+.technology-layout{padding:30px 7%;min-width:0}
+.technology h2{font-size:clamp(30px,7.7vw,44px);line-height:1.12}
+.technology ul{grid-template-columns:1fr;gap:15px}
+.technology li{font-size:14px;line-height:1.5}
+.technology-note{font-size:14px;line-height:1.65}
+.technology-art{height:230px;margin:24px 0 0;overflow:hidden}
+.technology-art img{width:150%;max-width:none;margin-left:-40%;object-position:right center}
+.services-center h2{font-size:clamp(38px,9.4vw,56px);letter-spacing:-.05em}
+.services-center>p:not(.eyebrow){font-size:15px;line-height:1.5}
+.care-orbital .service-grid{grid-template-columns:1fr;gap:20px}
+.care-orbital .service-card{padding:8px}
+.care-orbital .service-photo{aspect-ratio:1.6}
+.care-orbital .service-body{padding:20px 14px}
+.care-orbital .service-title h3{font-size:25px;line-height:1.15}
+.care-orbital .service-description{font-size:15px;line-height:1.65;min-height:0}
+.care-orbital .service-body>.text-link{min-height:44px;font-size:13px!important;gap:18px}
+.care-orbital .care-icon{width:28px;height:28px;flex-shrink:0}
+.reviews-heading h2{font-size:clamp(40px,10vw,58px)}
+.review-card blockquote{font-size:17px;line-height:1.55;min-height:0;margin:22px 0}
+.review-card h3{font-size:14px;line-height:1.4}
+.review-card>small,.review-disclosure{font-size:12px;line-height:1.5}
+.review-controls{font-size:12px;gap:12px;flex-wrap:wrap}
+.review-pause{min-height:44px;padding:8px 12px;font-size:12px}
+.faq h2{font-size:clamp(36px,9vw,50px)}
+.faq summary{font-size:16px;line-height:1.4;min-height:56px}
+.faq details p{font-size:15px;line-height:1.7}
+.contact-section{gap:32px}
+.contact-section h2{font-size:clamp(42px,11vw,62px)}
+.contact-section dl{grid-template-columns:1fr;gap:24px}
+.contact-section dt,.contact-section dd{font-size:15px;line-height:1.5}
+.contact-section dl small{font-size:12px;line-height:1.5}
+.contact-form{min-width:0}
+.contact-form label{font-size:14px}
+.contact-form input,.contact-form select,.contact-form textarea{width:100%;min-width:0;font-size:16px;min-height:48px}
+.contact-form .button{width:100%;min-height:48px;font-size:14px}
+.footer-columns{grid-template-columns:1fr;gap:30px}
+.footer-columns h3{font-size:16px}
+.footer-columns p{font-size:14px;line-height:1.6}
+.footer-columns nav>a,.footer-columns>div>a{font-size:14px;min-height:44px;display:flex;align-items:center}
+.footer-columns small,.footer-expanded .footer-bottom{font-size:12px;line-height:1.6}
+.footer-expanded .footer-top>p{font-size:14px;line-height:1.5}
+.footer-expanded .footer-bottom{gap:14px;padding-right:35px}
+.whatsapp-float{right:16px;bottom:calc(16px + env(safe-area-inset-bottom));width:54px;height:54px}
+}
+@media(max-width:360px){.nav-contact{font-size:11px}.brand>div{font-size:22px}.brand small{letter-spacing:1.5px}.values-grid{grid-template-columns:1fr}.values-grid article{min-height:185px}.hero-reference .hero-label{font-size:8px;max-width:95px}}
