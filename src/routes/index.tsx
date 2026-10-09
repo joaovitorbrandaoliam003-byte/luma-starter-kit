@@ -1,23 +1,42 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from '@tanstack/react-router';
+import { useEffect, useRef, useState } from 'react';
+import '../luma.css';
 
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Luma Dental Studio" },
-      { name: "description", content: "Luma Dental Studio" },
-      { property: "og:title", content: "Luma Dental Studio" },
-      { property: "og:description", content: "Luma Dental Studio" },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-    ],
-  }),
-  component: Index,
-});
+export const Route = createFileRoute('/')({head:()=>({meta:[{title:'Luma Dental Studio — A new light on your smile'},{name:'description',content:'Explore a more thoughtful approach to cosmetic, restorative and everyday dental care at Luma Dental Studio.'}]}),component:Luma});
 
-function Index() {
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <span className="text-sm text-muted-foreground">Luma Dental Studio</span>
-    </div>
-  );
+function Tooth({small=false}:{small?:boolean}) {
+ return <svg className={small?'tooth small':'tooth'} viewBox="0 0 420 560" aria-hidden="true"><defs>
+ <linearGradient id={small?'glass-s':'glass'} x1="0" y1="0" x2="1" y2=".7"><stop stopColor="#fff" stopOpacity=".95"/><stop offset=".14" stopColor="#93d2db"/><stop offset=".31" stopColor="#effbff"/><stop offset=".46" stopColor="#638c99"/><stop offset=".58" stopColor="#d6b9d0"/><stop offset=".73" stopColor="#eff7e9"/><stop offset=".87" stopColor="#649ca9"/><stop offset="1" stopColor="#e5ffff"/></linearGradient>
+ <radialGradient id={small?'inner-s':'inner'} cx=".35" cy=".2" r=".9"><stop stopColor="#fff" stopOpacity=".86"/><stop offset=".45" stopColor="#b6dee1" stopOpacity=".12"/><stop offset=".65" stopColor="#51788c" stopOpacity=".7"/><stop offset="1" stopColor="#ccf0f5" stopOpacity=".35"/></radialGradient>
+ <filter id={small?'shadow-s':'shadow'} x="-30%" y="-20%" width="160%" height="160%"><feDropShadow dx="0" dy="25" stdDeviation="20" floodColor="#123e50" floodOpacity=".3"/></filter>
+ </defs><g filter={`url(#${small?'shadow-s':'shadow'})`}>
+ <path d="M209 93C167 100 141 50 100 64C41 83 51 160 67 212C91 292 77 414 126 484C148 516 171 472 179 423C188 367 195 307 213 312C239 319 241 404 261 464C286 533 324 471 334 420C350 340 324 291 353 223C384 149 378 74 328 61C280 49 264 88 209 93Z" fill={`url(#${small?'glass-s':'glass'})`} stroke="#e3ffff" strokeWidth="2"/>
+ <path d="M209 110C165 116 145 76 109 83C72 95 74 165 86 211C111 301 98 403 132 463C142 481 151 427 164 368C184 270 219 250 250 340C269 395 267 449 286 474C310 447 323 372 314 326C302 253 341 222 349 156C355 107 335 78 305 80C276 83 258 109 209 110Z" fill={`url(#${small?'inner-s':'inner'})`}/>
+ <path d="M111 92C76 110 83 167 97 203M321 93C350 118 340 173 329 196M123 288C119 350 120 401 135 438M285 302C301 352 299 414 286 448" stroke="#fff" strokeWidth="8" strokeLinecap="round" fill="none" opacity=".65"/>
+ <path d="M131 92C153 87 171 117 209 119C249 121 272 102 292 92" stroke="#f6f7de" strokeWidth="3" fill="none" opacity=".6"/>
+ </g></svg>
+}
+const treatments=[{name:'Cosmetic dentistry',tag:'Confidence, beautifully considered.',copy:'Explore veneers, bonding and whitening with a plan shaped around your natural smile.',symbol:'✧'},{name:'Restorative care',tag:'A stronger foundation.',copy:'Discover thoughtful options for damaged or missing teeth, from crowns to implants.',symbol:'◈'},{name:'Everyday dentistry',tag:'Good care. For life.',copy:'Build lasting habits with routine examinations, professional cleanings and preventive care.',symbol:'◯'}];
+function Luma(){
+ const [menu,setMenu]=useState(false);const [selected,setSelected]=useState<string|null>(null);const [request,setRequest]=useState(false);const [sent,setSent]=useState(false);const hero=useRef<HTMLElement>(null);const dialog=useRef<HTMLDialogElement>(null);
+ useEffect(()=>{if(request){setSent(false);dialog.current?.showModal();}else dialog.current?.close();},[request]);
+ useEffect(()=>{const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}}),{threshold:.12});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));return()=>observer.disconnect();},[]);
+ const book=()=>setRequest(true);
+ return <div className="luma-site"><a className="skip" href="#main">Skip to content</a>
+ <header className="nav"><a className="brand" href="#" aria-label="Luma Dental Studio home">luma<span>®</span><small>DENTAL STUDIO</small></a><nav className={menu?'links open':'links'} aria-label="Main navigation">{[['Our approach','approach'],['Treatments','treatments'],['The experience','experience'],['FAQs','faq']].map(([name,id])=><a key={id} href={`#${id}`} onClick={()=>setMenu(false)}>{name}</a>)}</nav><button className="nav-book" onClick={book}>Let’s meet <span>↗</span></button><button className="menu" aria-label="Toggle navigation" aria-expanded={menu} onClick={()=>setMenu(!menu)}>{menu?'Close':'Menu'}</button></header>
+ <main id="main"><section className="hero" ref={hero} onPointerMove={e=>{if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){const r=e.currentTarget.getBoundingClientRect();hero.current?.style.setProperty('--pointer-x',`${((e.clientX-r.left)/r.width-.5)*18}px`);hero.current?.style.setProperty('--pointer-y',`${((e.clientY-r.top)/r.height-.5)*12}px`);}}}>
+ <div className="aurora aurora-one"/><div className="aurora aurora-two"/><div className="grain"/>
+ <p className="hero-kicker">A NEW LIGHT ON DENTAL CARE <span>✦</span></p><div className="tooth-stage"><Tooth/></div><div className="particles" aria-hidden="true">{Array.from({length:24},(_,i)=><i key={i} style={{left:`${(i*37)%97}%`,top:`${(i*23)%90}%`,animationDelay:`-${i*.6}s`,animationDuration:`${8+i%5}s`}}/>)}</div>
+ <div className="hero-copy"><h1><em>The art of</em><span>feeling confident.</span></h1><p>A brighter smile. A calmer experience.<br/>Dental care that sees the whole you.</p><div className="hero-actions"><button className="button light" onClick={book}>Find your smile <span>↗</span></button><a className="button outline" href="#treatments">Explore our care <span>↓</span></a></div></div>
+ <div className="hero-note"><span>01 / A FRESH PERSPECTIVE</span><p>Precision in every detail.<br/>Warmth in every moment.</p></div><a className="scroll-note" href="#approach">SCROLL TO DISCOVER <span>↓</span></a><div className="orbit-label" aria-hidden="true">THOUGHTFUL CARE<br/><span>✧</span><br/>NATURAL CONFIDENCE</div>
+ </section>
+ <div className="care-strip"><span>Designed around you</span><b>✧</b><span>Modern, considered care</span><b>✧</b><span>Beautifully natural smiles</span><b>✧</b><span>A little more confidence</span></div>
+ <section id="approach" className="approach section reveal"><div className="eyebrow">01 — OUR PHILOSOPHY</div><div><h2>Exceptional care.<br/><em>Entirely personal.</em></h2><p>Your smile is part of your story. We believe dental care should feel as individual as you are — with honest conversations, thoughtful choices and space to feel at ease.</p><a className="text-link" href="#experience">Get to know the Luma experience <span>↗</span></a></div></section>
+ <section id="treatments" className="treatments section"><div className="section-heading reveal"><div><p className="eyebrow">02 — MADE FOR YOUR SMILE</p><h2>A little care.<br/><em>A whole new feeling.</em></h2></div><p>From everyday essentials to a smile transformation,<br/>find the care that feels right for you.</p></div><div className="treatment-grid">{treatments.map((t,i)=><article className="treatment-card reveal" key={t.name}><div className={`treatment-art art-${i}`}><span>{t.symbol}</span></div><div className="card-body"><span className="card-number">0{i+1}</span><h3>{t.name}</h3><p>{t.tag}</p><button onClick={()=>setSelected(selected===t.name?null:t.name)} aria-expanded={selected===t.name}>Discover treatment <span>{selected===t.name?'−':'↗'}</span></button>{selected===t.name&&<div className="treatment-detail"><p>{t.copy}</p><button onClick={book}>Discuss your options →</button></div>}</div></article>)}</div></section>
+ <section id="experience" className="experience section reveal"><div className="experience-art"><div className="experience-orbit"/><Tooth small/><span>CARE, IN A DIFFERENT LIGHT.</span></div><div className="experience-copy"><p className="eyebrow">03 — THE LUMA EXPERIENCE</p><h2>Feel good<br/><em>about your care.</em></h2><p>We make room for your questions, explain your options and build a plan together. No rushed decisions. Just a clear next step.</p><div className="steps">{[['01','A real conversation','Tell us what matters to you. We start by listening.'],['02','A clearer picture','Understand your smile and the options available.'],['03','Your way forward','Choose a care plan together, at your own pace.']].map(([n,h,p])=><div key={n}><span>{n}</span><div><h3>{h}</h3><p>{p}</p></div></div>)}</div><button className="button dark" onClick={book}>Start a conversation <span>↗</span></button></div></section>
+ <section id="faq" className="faq section reveal"><div><p className="eyebrow">04 — A LITTLE CLARITY</p><h2>Good questions.<br/><em>Clear answers.</em></h2></div><div>{[['What happens at a first visit?','Your first visit starts with a conversation about your concerns and goals. Your clinician will explain any recommended examination, discuss findings and outline possible next steps.'],['How do I choose the right treatment?','A clinical assessment helps determine what is appropriate for your teeth and oral health. We explain the options, expected outcomes and limitations before you decide.'],['Can I discuss costs before starting?','Yes. Ask for a written treatment plan and cost estimate before proceeding. Fees depend on your individual needs and the care you choose.'],['I feel nervous about visiting the dentist. Can you help?','Let the team know before your appointment. We can discuss your concerns, explain the visit in advance and agree on pauses so you feel more in control.']].map(([q,a])=><details key={q}><summary>{q}<span>+</span></summary><p>{a}</p></details>)}</div></section>
+ <section className="closing reveal"><p className="eyebrow">YOUR NEXT CHAPTER STARTS HERE</p><h2>A smile that feels<br/><em>more like you.</em></h2><button className="button light" onClick={book}>Let’s find it together <span>↗</span></button><div className="closing-glow"/></section>
+ </main><footer><a className="brand" href="#">luma<span>®</span><small>DENTAL STUDIO</small></a><p>A new light on your smile.</p><div><a href="#approach">Our approach</a><a href="#treatments">Treatments</a><button onClick={book}>Get in touch ↗</button></div><small>© {new Date().getFullYear()} Luma Dental Studio. Concept website.</small></footer>
+ <dialog ref={dialog} className="booking" onCancel={()=>setRequest(false)} onClick={e=>{if(e.target===e.currentTarget)setRequest(false);}}><button className="close-dialog" onClick={()=>setRequest(false)} aria-label="Close consultation form">✕</button>{sent?<div className="success"><span>✧</span><h2>Your next step,<br/><em>beautifully clear.</em></h2><p>This is a concept preview. Your request was not sent or stored. A live appointment service will be connected before launch.</p><button className="button dark" onClick={()=>setRequest(false)}>Back to Luma</button></div>:<><p className="eyebrow">LET’S START WITH YOU</p><h2>Find your<br/><em>new confidence.</em></h2><p>Explore the consultation form. This preview does not send personal information.</p><form onSubmit={e=>{e.preventDefault();setSent(true);}}><label>Your name<input name="name" autoComplete="name" placeholder="Full name" required maxLength={100}/></label><label>Email address<input type="email" name="email" autoComplete="email" placeholder="you@example.com" required maxLength={254}/></label><label>What would you like to explore?<select name="treatment"><option>General consultation</option>{treatments.map(t=><option key={t.name}>{t.name}</option>)}</select></label><button className="button dark" type="submit">Preview request <span>↗</span></button><small>Demo only — no appointment is booked.</small></form></>}</dialog>
+ </div>
 }
